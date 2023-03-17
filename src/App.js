@@ -24,6 +24,7 @@ import Error404 from './pages/errorPages/error404';
 import UpdateCompany from './components/dashboard/updateDB/company/UpdateCompany';
 import { Logout } from './pages/account/Logout';
 import UsersEditable from './components/dashboard/updateDB/users/UsersEditable';
+import GunChat from './components/gun/GunChat';
 
 const ROLES = {
   "ADMIN": 5673,
@@ -33,7 +34,7 @@ const ROLES = {
 
 
 function App() {
-  const [colorScheme, setColorScheme] = useState("light")
+  const [colorScheme, setColorScheme] = useState("dark")
   const toggleColorScheme = value =>
     setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
   return (
@@ -63,6 +64,7 @@ function App() {
             <Route exact path="/unauthorized" element={<Unauthorized />} />
             <Route exact path="/trending" element={<Trending />} />
             <Route exact path="/local" element={<Lokalet />} />
+            <Route exact path="/chat" element={<GunChat/> } />
 
 
             {/* protected routes */}

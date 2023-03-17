@@ -7,6 +7,7 @@ function LandingPage() {
         <>
             <Nav />
             <HeroBullets />
+            
             <Footer />
         </>
     )

@@ -32,7 +32,9 @@ function RegisterGun(props) {
     });
   };
 
-  return <div>{username}</div>;
+  return (
+    handleRegistration()
+  );
 }
 
 export default RegisterGun;

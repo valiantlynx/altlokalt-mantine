@@ -75,67 +75,13 @@
     crossorigin="anonymous"></script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1999783042627713"
     crossorigin="anonymous"></script>
-
-  <body>
-   
-
-
-
-    <!-- Custom JS -->
-    <script src="https://cdn.jsdelivr.net/npm/gun/sea.js"></script>
-    <!-- script src="https://cdn.jsdelivr.net/npm/gun/lib/webrtc.js"></script -->
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"> </script> -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script> -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/universal-sentence-encoder@latest/dist/universal-sentence-encoder.min.js"></script> -->
-   
-    <script>
-      const gun = Gun(
-        // { peers: ['http://localhost:8765/gun'] }
-        { peers: ['https://chat.valiantlynx.com/gun'] }
-      );
-
-      let currentUser = null;
-      let chatNode = null;
-
-      document.getElementById('register-button').addEventListener('click', registerUser);
-      document.getElementById('login-button').addEventListener('click', (event) => {
-        event.preventDefault();
-        const username = document.getElementById('username-input').value.trim();
-        const password = document.getElementById('password-input').value.trim();
-
-        if (username === '' || password === '') {
-          alert('Please enter a username and password');
-          return;
-        }
-
-        loginUser(username, password);
-      });
-      document.getElementById('logout-button').addEventListener('click', logoutUser);
-      document.getElementById('send-button').addEventListener('click', sendMessage);
-      document.getElementById('chat-input').addEventListener('keypress', (event) => {
-        if (event.key === 'Enter') {
-          sendMessage(event);
-        }
-      });
-
-      // Check for cached user
-      const cachedUser = localStorage.getItem('currentUser');
-      const cachedPassword = localStorage.getItem('currentPassword');
-      if (cachedUser && cachedPassword) {
-        loginUser(cachedUser, cachedPassword);
-      }
-
-
-
-    </script>
-
-    <!-- horizontal banner ads -->
-    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1999783042627713" data-ad-slot="2434486835"
-      data-ad-format="auto" data-full-width-responsive="true"></ins>
-    <script>
-      (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
+    
+      <!-- horizontal banner ads -->
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1999783042627713" data-ad-slot="2434486835"
+        data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
   </body>
 
 </html>

@@ -27,7 +27,7 @@ function DeleteAllMessages() {
 
 
 
-    if (confirm('Are you sure you want to delete all messages? This action cannot be undone.')) {
+    if (alert('Are you sure you want to delete all messages? This action cannot be undone.')) {
         gun.get('messages').map().once((data, key) => {
             gun.get('messages').get(key).put(null, ack => {
 

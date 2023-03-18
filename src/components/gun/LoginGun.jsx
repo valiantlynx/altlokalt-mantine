@@ -45,6 +45,22 @@ function LoginGun(props) {
 
   });
 
+  document.getElementById('register-button').addEventListener('click', registerUser);
+      
+        
+  document.getElementById('login-button').addEventListener('click', (event) => {
+    event.preventDefault();
+    const username = document.getElementById('username-input').value.trim();
+    const password = document.getElementById('password-input').value.trim();
+
+    if (username === '' || password === '') {
+      alert('Please enter a username and password');
+      return;
+    }
+
+    loginUser(username, password);
+  });
+
 
   return (
     <div id="login-form">
@@ -54,7 +70,7 @@ function LoginGun(props) {
         <input type="password" id="password-input" placeholder="Password" />
         <input type="submit" id="login-button" value="Log In" />
       </form>
-      <button class=" button" id="register-button">Register</button>
+      <button className=" button" id="register-button">Register</button>
     </div>
   )
 }

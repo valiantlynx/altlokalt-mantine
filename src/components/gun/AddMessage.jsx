@@ -5,6 +5,7 @@ import DeleteMessage from './DeleteMessage';
 function AddMessage(props) {
     const currentUser = localStorage.getItem('currentUser');
     const data = props.data;
+    console.log(data);
 
     try {
         const { username, message, time, id, image } = data;
@@ -73,7 +74,7 @@ function AddMessage(props) {
 
 
     return (
-        <div>AddMessage</div>
+        <div id="chat"></div>
     )
 }
 

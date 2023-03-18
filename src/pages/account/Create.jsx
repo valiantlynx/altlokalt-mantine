@@ -1,3 +1,4 @@
+// register on the server as well as on gun db
 import {
     Paper,
     createStyles,
@@ -13,7 +14,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { register } from '../../components/api/axios';
 import Footer from '../../components/footer/Footer';
-
+import Gun from 'gun';
+import 'gun/sea';
 const useStyles = createStyles((theme) => ({
     wrapper: {
         minHeight: 900,
@@ -48,6 +50,8 @@ const useStyles = createStyles((theme) => ({
     },
 }));
 
+const gun = Gun({ peers: ['https://chat.valiantlynx.com/gun'] });
+
 export function Create() {
     const { classes } = useStyles();
 
@@ -64,34 +68,54 @@ export function Create() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-      
+        registerServer();
+
+
+
+    };
+
+    // function to register user on server
+    async function registerServer() {
         try {
-          const response = await register.post('', data, {
-            headers: {
-              'Content-Type': 'application/json',
-              'Accept': 'application/json'
+            const response = await register.post('', data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            });
+
+            const result = response.data;
+
+            if (result.status === "success") {
+                console.log("success");
+                registerGun(data);
+
+                history("/login");
             }
-          });
-      
-          const result = response.data;
-      
-          if (result.status === "success") {
-            console.log("success");
-            history("/login");
-          }
-      
-          if (result.message === 'Email address already in use.') {
-            setErrorMessage(result.message);
-          } else if (result.message === "Successfully registered, Please login") {
-            setErrorMessage("");
-            setSuccessMessage(result.message);
-          }
+
+            if (result.message === 'Email address already in use.') {
+                setErrorMessage(result.message);
+            } else if (result.message === "Successfully registered, Please login") {
+                setErrorMessage("");
+                setSuccessMessage(result.message);
+                registerGun(data);
+                history("/login");
+            }
         } catch (error) {
-          console.error(error);
-          setErrorMessage('An error occurred while creating your account. Please try again later.');
+            console.error(error);
+            setErrorMessage('An error occurred while creating your account. Please try again later.');
         }
-      };
-      
+    }
+
+    // function to register user on gun db using gun/sea
+    function registerGun(data) {
+
+        console.log(data);
+        const { name, email, password } = data;
+        
+    }
+
+
 
 
 

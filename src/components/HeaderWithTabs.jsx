@@ -1,10 +1,11 @@
 import { Grid, Pagination, SimpleGrid, Center } from '@mantine/core';
 import { useState } from 'react';
-import Footer from './Footer';
-import { BadgeCard } from './BadgeCard';
+
 
 import { useQuery } from '@tanstack/react-query';
 import { getPostsPage } from './api/axios';
+import { BadgeCard } from './cards/BadgeCard';
+import Footer from './footer/Footer';
 
 function HeaderWithTabs() {
 
@@ -64,7 +65,6 @@ function HeaderWithTabs() {
           <Pagination total={companies.page.totalPages} page={page} onChange={setPage} size="xs" radius="xl" withEdges />
         </Center>
       </SimpleGrid>
-
       <Footer />
     </div>
 

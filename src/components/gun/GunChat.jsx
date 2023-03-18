@@ -1,12 +1,16 @@
 // make a chat dapp using gunjs. with user authentication. and a chat form. and a chat log. and a delete all messages button. and a log out button. and a delete all messages button
-import { useState, useEffect, useReducer } from 'react'
+import { useState, useEffect, useReducer, memo } from 'react'
 import Footer from '../footer/Footer'
 import Nav from '../nav/Nav'
 import Gun from 'gun'
+import { CommentHtml } from './CommentHtml'
+import { Text, ThemeIcon, Image, createStyles, SimpleGrid } from '@mantine/core';
 
 const gun = Gun({
     peers: ['https://chat.valiantlynx.com/gun']
 });
+
+
 
 // an initial state for the messages
 const initialState = {
@@ -30,6 +34,7 @@ function reducer(state, action) {
 }
 
 function GunChat() {
+
     // a form state holding the name of the user and the message, the id of the message, and the date the message was created, and if the message has an image
     const [formState, setFormState] = useState({
         name: '',
@@ -75,18 +80,23 @@ function GunChat() {
     // a way to save the message to the gun db
     const saveMessage = (e) => {
         e.preventDefault()
+        const id = Date.now().toString(36) + Math.floor(Math.pow(10, 12) + Math.random() * 9 * Math.pow(10, 12)).toString(36)
+
         // get the messages from the gun db
         const messages = gun.get('messages')
         // add the new message to the gun db
         messages.set({
             name: formState.name,
             message: formState.message,
+            id: id,
+            image: formState.image,
             createdAt: new Date().toISOString()
         })
         // clear the form
         setFormState({
             name: '',
-            message: ''
+            message: '',
+            image: ''
         })
     }
 
@@ -117,12 +127,38 @@ function GunChat() {
 
     }
 
+    //check if the message is already in rendred in frontend if it is dont create new <li>, using the React.memo higher-order component to memoize your Message component.
+    // comment design from mantine
+    const Message = memo(({ message }) => {
+        const { name, message: comment, createdAt: date, image, likes, dislikes } = message
+        const avatarSrc = `https://avatars.dicebear.com/api/human/${name}.svg`
+        return (
+            <CommentHtml avatar={avatarSrc} name={name} createdAt={date} message={comment} image={image} likes={likes} dislikes={dislikes} />
+        )
+    })
 
-    // function to render the state, check if the mesaage is exatly the same as the one already rendred and if not, render it
-    function renderState() {
-        // check if the state is not empty
+    // go through the messages cards and check if the id of the mesage is already in the frontend, it its not add it to a new array
+    const messages = state.messages.map((message, index) => {
+        return (
+            <Message key={index} message={message} />
+        )
+    })
 
-    }
+
+    //make a rich text editor using mantine
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -173,36 +209,16 @@ function GunChat() {
                 <div className="row">
                     <div className="col-12">
                         <h2>Messages</h2>
-                        <ul>
-    
-                            { 
-                                // map through the state
-                                state.messages.map((m, i) => {
-                                    console.log('m: ', m)
-                                    console.log('state.messages[i - 1]: ', state.messages[i - 1])
-                                    console.log("i: ", i)
-                                    // check if the mesaage is exatly the same as the one already rendred starting with the second message
-                                    if (i > 0 && m.name === state.messages[i - 1].name && m.message === state.messages[i - 1].message && m.createdAt === state.messages[i - 1].createdAt) {
-                                        // do nothing
-                                    } else {
-                                        // render the message
-                                        return (
-                                            <li className="card" key={i}>
-                                                <div className="card-content">
-                                                    <div className="content">
-                                                        <h3>{m.name}</h3>
-                                                        <p>{m.message}</p>
-                                                        <p>{m.createdAt}</p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        )
-                                    }
-                                })
-                          }
 
+                        <SimpleGrid
+                            cols={1}
+                            spacing={50}
+                            breakpoints={[{ maxWidth: 550, cols: 1, spacing: 40 }]}
+                            style={{ marginTop: 30 }}
+                        >
+                            {messages}
+                        </SimpleGrid>
 
-                        </ul>
                     </div>
                 </div>
             </div>

@@ -1,12 +1,14 @@
 import Footer from "../components/footer/Footer";
-import { HeroBullets } from "../components/hero-cards/HeroBullets";
+import HeaderWithTabs from "../components/HeaderWithTabs";
+
 import Nav from "../components/nav/Nav";
 
 function LandingPage() {
     return (
         <>
             <Nav />
-            <HeroBullets />
+            <HeaderWithTabs/>
+            
             
             <Footer />
         </>

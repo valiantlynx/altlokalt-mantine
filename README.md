@@ -68,3 +68,13 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+
+### adding new projects with their own git history
+```sh
+git subtree add --prefix=apps/altlokalt-mantine https://github.com/valiantlynx/altlokalt-mantine.git master --squash
+git subtree pull --prefix=apps/altlokalt-mantine https://github.com/valiantlynx/altlokalt-mantine.git master --squash
+git subtree push --prefix=apps/altlokalt-mantine https://github.com/valiantlynx/altlokalt-mantine.git master
+
+```
